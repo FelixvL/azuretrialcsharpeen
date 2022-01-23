@@ -1,7 +1,9 @@
+using DatabaseKontekst;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -28,6 +30,9 @@ namespace azureapipoging1
         {
 
             services.AddControllers();
+            services.AddDbContext<DatabaseCtx>(options => {
+                options.UseSqlServer(Configuration.GetConnectionString("Default"));
+            });
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "azureapipoging1", Version = "v1" });
